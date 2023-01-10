@@ -1,0 +1,59 @@
+---
+- name: Installing nginx server and setting up
+  hosts: private1
+  become: yes
+  vars:
+    domain: HealthCare.com
+    port: 80
+    domain_https: www.HealthCare.com
+  tasks:
+     - name: update the client server
+       command: apt update
+     - name: install nginx to the client server
+       ansible.builtin.package:
+          name: nginx
+          state: latest
+          update_cache: yes 
+     - name: start nginx
+       service:
+          name: nginx
+          state: started
+     - name: enable client server ufw
+       community.general.ufw:
+          state: enabled
+          policy: allow
+     - name: ufw allow nginx full
+       community.general.ufw:
+          rule: allow
+          name: 'nginx full'
+     - name: ufw allow port 80
+       community.general.ufw:
+          rule: allow
+          port: '80'
+          proto: tcp
+     - name: ufw allow port 443
+       community.general.ufw:
+          rule: allow
+          port: '443'
+          proto: tcp
+     - name: copy a directory to remote server
+       ansible.builtin.copy:
+          src: /home/ubuntu/HealthCare.com
+          dest: /var/www/
+          owner: ubuntu
+          group: ubuntu
+          mode: '0755'
+     - name: copy Healthcare.come file to remote server
+       template:
+          src: /home/ubuntu/Healthcare.com
+          dest: /etc/nginx/sites-available/
+          mode: '0644'
+     - name: create a symbolink for nginx to read on startup
+         shell: sudo ln -s /etc/nginx/sites-available/Healthcare.com /etc/nginx/sites-enabled
+     - name: move default file from sites-enabled
+         shell: mv /etc/nginx/sites-enabled/default /home/ubuntu
+     - name: restart nginx server
+       service:
+           name: nginx
+           state: restarted
+
