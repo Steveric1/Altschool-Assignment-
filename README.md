@@ -3,15 +3,15 @@
 ## Introduction
 ### To create a VPC (Virtual Private Cloud) with public and private subnets is one of the ways to segregate applications and resources from the public internet.This Readme is a simple guide on how to create a VPC with subnets, route tables, internet gateway, NAT gateway, and security groups in AWS (Amazon Web Services)
 ### Perequisites
-#### i. Signin into aws console ( You must create an account on aws to access the console)
+#### i. Sign in into aws console ( You must create an account on aws to access the console)
 #### ii. Create an IAM user with permissions
-#### iii. A good laptop with a good internet connection :technologist:
+#### iii. A laptop with a good internet connection :technologist:
 ## A simple step-by-step guide using aws console
 ## 1. Create a VPC (Virtual Private Cloud)
  - Login into aws console 
  - Navigate to AWS services and search for VPC, 
  - Then navigate to the left menu bar and click on your VPC to create
- - In the name tag innput your custom vpc name. For example, *"Altschool Vpc"*
+ - In the name tag input your custom vpc name. For example, *"Altschool Vpc"*
  - Input your IPv4 CDIR block, for example *"10.0.0.0/16"*. Click on create Vpc button 
  ## 2. Subnets
  - By your top right on the services menu, click on subnets
